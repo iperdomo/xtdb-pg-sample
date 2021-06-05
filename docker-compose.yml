@@ -1,0 +1,29 @@
+version: "3"
+services:
+  db:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+  backend:
+    image: akvo/akvo-clojure-lein:20210124.114043.4437caf
+    command: ["lein", "repl", ":headless"]
+    environment:
+      - DATABASE_URL=jdbc:postgresql://db/crux?user=crux&password=password
+    ports:
+      - 3000:3000
+      - 47480:47480
+    volumes:
+      - ./backend:/app
+      - ~/.m2:/home/akvo/.m2
+      - ~/.lein:/home/akvo/.lein
+      - ~/.m2:/root/.m2:delegated
+      - ~/.lein:/root/.lein:delegated
+    depends_on:
+      - db
+volumes:
+  pg-data:

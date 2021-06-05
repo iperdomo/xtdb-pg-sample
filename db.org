@@ -1,0 +1,63 @@
+#+PROPERTY: header-args:sql     :exports both
+#+PROPERTY: header-args:sql+    :engine postgresql
+#+PROPERTY: header-args:sql+    :dbhost localhost
+#+PROPERTY: header-args:sql+    :dbuser crux
+#+PROPERTY: header-args:sql+    :dbpassword password
+#+PROPERTY: header-args:sql+    :database crux
+
+#+begin_src sql
+\l
+#+end_src
+
+#+RESULTS:
+| List of databases     |          |          |             |             |                   |
+|-----------------------+----------+----------+-------------+-------------+-------------------|
+| Name                  | Owner    | Encoding | Collate     | Ctype       | Access privileges |
+| crux                  | crux     | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                   |
+| postgres              | postgres | UTF8     | en_US.utf8  | en_US.utf8  |                   |
+| template0             | postgres | UTF8     | en_US.utf8  | en_US.utf8  | =c/postgres       |
+| postgres=CTc/postgres |          |          |             |             |                   |
+| template1             | postgres | UTF8     | en_US.utf8  | en_US.utf8  | =c/postgres       |
+| postgres=CTc/postgres |          |          |             |             |                   |
+
+
+#+begin_src sql
+\d
+#+end_src
+
+#+RESULTS:
+| List of relations |                            |          |       |
+|-------------------+----------------------------+----------+-------|
+| Schema            | Name                       | Type     | Owner |
+| public            | tx_events                  | table    | crux  |
+| public            | tx_events_event_offset_seq | sequence | crux  |
+
+#+begin_src sql
+select * from tx_events
+#+end_src
+
+#+RESULTS:
+| event_offset | event_key                                | tx_time                       | topic | v                                                                                                                                                                                    | compacted |
+|--------------+------------------------------------------+-------------------------------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------|
+|            1 | f9771c2de80b00ea434369ed3bdb8fe30bc86de7 | 2021-06-05 10:13:45.228971+00 | docs  | \x4e50590070036a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f6a0a66697273742d6e616d6569055061626c6f6a096c6173742d6e616d6569075069636173736f |         0 |
+|            2 |                                          | 2021-06-05 10:13:45.256286+00 | txs   | \x4e5059006e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba00f9771c2de80b00ea434369ed3bdb8fe30bc86de7                                           |         0 |
+|            3 | 1274f31d8b4ffdddcdb331a1f6aba9292f1c509b | 2021-06-05 10:14:04.762305+00 | docs  | \x4e50590070026a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f6a096c6173742d6e616d656907506963617a7a6f                                       |         0 |
+|            4 |                                          | 2021-06-05 10:14:04.772229+00 | txs   | \x4e5059006e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba001274f31d8b4ffdddcdb331a1f6aba9292f1c509b                                           |         0 |
+
+#+begin_src sql
+\d tx_events
+#+end_src
+
+#+RESULTS:
+| Table "public.tx_events"                           |                          |           |          |                                                 |
+|----------------------------------------------------+--------------------------+-----------+----------+-------------------------------------------------|
+| Column                                             | Type                     | Collation | Nullable | Default                                         |
+| event_offset                                       | integer                  |           | not null | nextval('tx_events_event_offset_seq'::regclass) |
+| event_key                                          | character varying        |           |          |                                                 |
+| tx_time                                            | timestamp with time zone |           |          | CURRENT_TIMESTAMP                               |
+| topic                                              | character varying        |           | not null |                                                 |
+| v                                                  | bytea                    |           | not null |                                                 |
+| compacted                                          | integer                  |           | not null |                                                 |
+| Indexes:                                           |                          |           |          |                                                 |
+| "tx_events_pkey" PRIMARY KEY, btree (event_offset) |                          |           |          |                                                 |
+| "tx_events_event_key_idx_2" btree (event_key)      |                          |           |          |                                                 |
