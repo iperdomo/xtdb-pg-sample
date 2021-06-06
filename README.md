@@ -7,6 +7,14 @@ document store.
 
 https://opencrux.com/reference/21.05-1.17.0/jdbc.html
 
+> This project contains `crux.jdbc` which is an implementation of `TxLog` backend by a
+> JDBC-compatible database of your choosing, for strong durability guarantees in situations where
+> Kafka cannot be used and scalability is less important. This implementation provides the same
+> semantics as the `crux-kafka`.
+
+https://github.com/juxt/crux/tree/21.05-1.17.0/crux-jdbc
+
+
 ## Usage
 
 The development environment used [Docker](https://docs.docker.com/get-docker/) and
