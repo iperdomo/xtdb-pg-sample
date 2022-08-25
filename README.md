@@ -1,18 +1,12 @@
-# crux-pg-sample
+# xtdb-pg-sample
 
-An example repository using [Crux](https://opencrux.com) with PostgreSQL as transaction log and
+An example repository using [XTDB](https://xtdb.com/) with PostgreSQL as transaction log and
 document store.
 
-> Crux nodes can use JDBC databases to store their transaction logs and/or document stores.
+> JDBC transaction logs and document stores depend on a 'connection pool' component - if you use
+> both, they can share the same connection pool.
 
-https://opencrux.com/reference/21.05-1.17.0/jdbc.html
-
-> This project contains `crux.jdbc` which is an implementation of `TxLog` backend by a
-> JDBC-compatible database of your choosing, for strong durability guarantees in situations where
-> Kafka cannot be used and scalability is less important. This implementation provides the same
-> semantics as the `crux-kafka`.
-
-https://github.com/juxt/crux/tree/21.05-1.17.0/crux-jdbc
+https://docs.xtdb.com/storage/jdbc/
 
 
 ## Usage
@@ -25,6 +19,9 @@ Start the system
 ```
 docker-compose up -d
 ```
+
+After startup you'll have a running nREPL server running on `localhost:47480`. Connect to it (e.g.,
+`cider-connect`) and load the `xtdb-pg-sample.core` namespace.
 
 
 ## License

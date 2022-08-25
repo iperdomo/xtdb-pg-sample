@@ -1,6 +1,6 @@
-(ns crux-pg-sample.core-test
+(ns xtdb-pg-sample.core-test
   (:require [clojure.test :refer :all]
-            [crux-pg-sample.core :refer :all]))
+            [xtdb-pg-sample.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

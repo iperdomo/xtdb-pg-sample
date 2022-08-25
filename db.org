@@ -1,9 +1,9 @@
 #+PROPERTY: header-args:sql     :exports both
 #+PROPERTY: header-args:sql+    :engine postgresql
 #+PROPERTY: header-args:sql+    :dbhost localhost
-#+PROPERTY: header-args:sql+    :dbuser crux
+#+PROPERTY: header-args:sql+    :dbuser xtdb
 #+PROPERTY: header-args:sql+    :dbpassword password
-#+PROPERTY: header-args:sql+    :database crux
+#+PROPERTY: header-args:sql+    :database xtdb
 
 #+begin_src sql
 \l
@@ -13,12 +13,12 @@
 | List of databases     |          |          |             |             |                   |
 |-----------------------+----------+----------+-------------+-------------+-------------------|
 | Name                  | Owner    | Encoding | Collate     | Ctype       | Access privileges |
-| crux                  | crux     | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                   |
 | postgres              | postgres | UTF8     | en_US.utf8  | en_US.utf8  |                   |
 | template0             | postgres | UTF8     | en_US.utf8  | en_US.utf8  | =c/postgres       |
 | postgres=CTc/postgres |          |          |             |             |                   |
 | template1             | postgres | UTF8     | en_US.utf8  | en_US.utf8  | =c/postgres       |
 | postgres=CTc/postgres |          |          |             |             |                   |
+| xtdb                  | xtdb     | UTF8     | en_US.UTF-8 | en_US.UTF-8 |                   |
 
 
 #+begin_src sql
@@ -29,20 +29,20 @@
 | List of relations |                            |          |       |
 |-------------------+----------------------------+----------+-------|
 | Schema            | Name                       | Type     | Owner |
-| public            | tx_events                  | table    | crux  |
-| public            | tx_events_event_offset_seq | sequence | crux  |
+| public            | tx_events                  | table    | xtdb  |
+| public            | tx_events_event_offset_seq | sequence | xtdb  |
 
 #+begin_src sql
 select * from tx_events
 #+end_src
 
 #+RESULTS:
-| event_offset | event_key                                | tx_time                       | topic | v                                                                                                                                                                                    | compacted |
-|--------------+------------------------------------------+-------------------------------+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------|
-|            1 | f9771c2de80b00ea434369ed3bdb8fe30bc86de7 | 2021-06-05 10:13:45.228971+00 | docs  | \x4e50590070036a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f6a0a66697273742d6e616d6569055061626c6f6a096c6173742d6e616d6569075069636173736f |         0 |
-|            2 |                                          | 2021-06-05 10:13:45.256286+00 | txs   | \x4e5059006e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba00f9771c2de80b00ea434369ed3bdb8fe30bc86de7                                           |         0 |
-|            3 | 1274f31d8b4ffdddcdb331a1f6aba9292f1c509b | 2021-06-05 10:14:04.762305+00 | docs  | \x4e50590070026a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f6a096c6173742d6e616d656907506963617a7a6f                                       |         0 |
-|            4 |                                          | 2021-06-05 10:14:04.772229+00 | txs   | \x4e5059006e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba001274f31d8b4ffdddcdb331a1f6aba9292f1c509b                                           |         0 |
+| event_offset | event_key                                | tx_time                       | topic | v                                                                                                                                                                                                                                                    | compacted |
+|--------------+------------------------------------------+-------------------------------+-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------|
+|            1 | f9771c2de80b00ea434369ed3bdb8fe30bc86de7 | 2022-08-25 09:56:42.830679+00 | docs  | \x4e50590070036a0a66697273742d6e616d6569055061626c6f6a096c6173742d6e616d6569075069636173736f6a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f                                                                 |         0 |
+|            2 |                                          | 2022-08-25 09:56:42.853453+00 | txs   | \x4e50590070026a17787464622e74782e6576656e742f74782d6576656e74736e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba00f9771c2de80b00ea434369ed3bdb8fe30bc86de76a17787464622e6170692f7375626d69742d74782d6f70747313 |         0 |
+|            3 | 1274f31d8b4ffdddcdb331a1f6aba9292f1c509b | 2022-08-25 09:57:10.854625+00 | docs  | \x4e50590070026a096c6173742d6e616d656907506963617a7a6f6a0a637275782e64622f69646a1e646270656469612e7265736f757263652f5061626c6f2d5069636173736f                                                                                                       |         0 |
+|            4 |                                          | 2022-08-25 09:57:10.863263+00 | txs   | \x4e50590070026a17787464622e74782e6576656e742f74782d6576656e74736e01726a0b637275782e74782f70757452a7ba005187efca50d53db9d0ce00839541c2b8c991ec1152a7ba001274f31d8b4ffdddcdb331a1f6aba9292f1c509b6a17787464622e6170692f7375626d69742d74782d6f70747313 |         0 |
 
 #+begin_src sql
 \d tx_events

@@ -13,7 +13,7 @@ services:
     image: akvo/akvo-clojure-lein:20210124.114043.4437caf
     command: ["lein", "repl", ":headless"]
     environment:
-      - DATABASE_URL=jdbc:postgresql://db/crux?user=crux&password=password
+      - DATABASE_URL=jdbc:postgresql://db/xtdb?user=xtdb&password=password
     ports:
       - 3000:3000
       - 47480:47480
