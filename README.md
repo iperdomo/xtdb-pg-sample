@@ -6,7 +6,7 @@ document store.
 > JDBC transaction logs and document stores depend on a 'connection pool' component - if you use
 > both, they can share the same connection pool.
 
-https://docs.xtdb.com/storage/jdbc/
+https://v1-docs.xtdb.com/storage/jdbc/
 
 
 ## Usage
@@ -26,7 +26,7 @@ After startup you'll have a running nREPL server running on `localhost:47480`. C
 
 ## License
 
-Copyright © 2021 Iván Perdomo
+Copyright (C) Iván Perdomo
 
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
